@@ -64,20 +64,20 @@ pipe <- function()
 #' @param lhs A value or the magrittr placeholder.
 #' @param rhs A function call using the magrittr semantics.
 #' @details
-#' \bold{Using \code{\%>\%} with unary function calls}\cr
-#' When functions require only one argument, \code{x \%>\% f} is equivalent
+#' \bold{Using \code{\%>>\%} with unary function calls}\cr
+#' When functions require only one argument, \code{x \%>>\% f} is equivalent
 #' to \code{f(x)} (not exactly equivalent; see technical note below.)
 #' \cr\cr
 #' \bold{Placing \code{lhs} as the first argument in \code{rhs} call}\cr
-#' The default behavior of \code{\%>\%} when multiple arguments are required
+#' The default behavior of \code{\%>>\%} when multiple arguments are required
 #' in the \code{rhs} call, is to place \code{lhs} as the first argument, i.e. 
-#' \code{x \%>\% f(y)} is equivalent to \code{f(x, y)}.
+#' \code{x \%>>\% f(y)} is equivalent to \code{f(x, y)}.
 #' \cr\cr
 #' \bold{Placing \code{lhs} elsewhere in \code{rhs} call}\cr
 #' Often you will want \code{lhs} to the \code{rhs} call at another position than the first.
 #' For this purpose you can use the dot (\code{.}) as placeholder. For example,
-#' \code{y \%>\% f(x, .)} is equivalent to \code{f(x, y)} and
-#' \code{z \%>\% f(x, y, arg = .)} is equivalent to \code{f(x, y, arg = z)}.
+#' \code{y \%>>\% f(x, .)} is equivalent to \code{f(x, y)} and
+#' \code{z \%>>\% f(x, y, arg = .)} is equivalent to \code{f(x, y, arg = z)}.
 #' \cr\cr
 #' \bold{Using the dot for secondary purposes}\cr
 #' Often, some attribute or property of \code{lhs} is desired in the \code{rhs} call in
@@ -87,22 +87,22 @@ pipe <- function()
 #' nested function calls. In particular, if the placeholder is only used 
 #' in a nested function call, \code{lhs} will also be placed as the first argument!
 #' The reason for this is that in most use-cases this produces the most readable 
-#' code. For example, \code{iris \%>\% subset(1:nrow(.) \%\% 2 == 0)} is 
-#' equivalent to \code{iris \%>\% subset(., 1:nrow(.) \%\% 2 == 0)} but
+#' code. For example, \code{iris \%>>\% subset(1:nrow(.) \%\% 2 == 0)} is 
+#' equivalent to \code{iris \%>>\% subset(., 1:nrow(.) \%\% 2 == 0)} but
 #' slightly more compact. It is possible to overrule this behavior by enclosing
-#' the \code{rhs} in braces. For example, \code{1:10 \%>\% {c(min(.), max(.))}} is
+#' the \code{rhs} in braces. For example, \code{1:10 \%>>\% {c(min(.), max(.))}} is
 #' equivalent to \code{c(min(1:10), max(1:10))}.
 #' \cr\cr
-#' \bold{Using \%>\% with call- or function-producing \code{rhs}}\cr
+#' \bold{Using \%>>\% with call- or function-producing \code{rhs}}\cr
 #' It is possible to force evaluation of \code{rhs} before the piping of \code{lhs} takes 
 #' place. This is useful when \code{rhs} produces the relevant call or function.
 #' To evaluate \code{rhs} first, enclose it in parentheses, i.e. 
-#' \code{a \%>\% (function(x) x^2)}, and \code{1:10 \%>\% (call("sum"))}.
+#' \code{a \%>>\% (function(x) x^2)}, and \code{1:10 \%>>\% (call("sum"))}.
 #' Another example where this is relevant is for reference class methods
 #' which are accessed using the \code{$} operator, where one would do
-#' \code{x \%>\% (rc$f)}, and not \code{x \%>\% rc$f}.
+#' \code{x \%>>\% (rc$f)}, and not \code{x \%>>\% rc$f}.
 #' \cr\cr
-#' \bold{Using lambda expressions with \code{\%>\%}}\cr
+#' \bold{Using lambda expressions with \code{\%>>\%}}\cr
 #' Each \code{rhs} is essentially a one-expression body of a unary function.
 #' Therefore defining lambdas in magrittr is very natural, and as 
 #' the definitions of regular functions: if more than a single expression
@@ -135,44 +135,44 @@ pipe <- function()
 #' 
 #' @examples
 #' # Basic use:
-#' iris %>% head
+#' iris %>>% head
 #' 
 #' # Use with lhs as first argument
-#' iris %>% head(10)
+#' iris %>>% head(10)
 #' 
 #' # Using the dot place-holder
-#' "Ceci n'est pas une pipe" %>% gsub("une", "un", .)
+#' "Ceci n'est pas une pipe" %>>% gsub("une", "un", .)
 #'   
 #' # When dot is nested, lhs is still placed first:
-#' sample(1:10) %>% paste0(LETTERS[.])
+#' sample(1:10) %>>% paste0(LETTERS[.])
 #' 
 #' # This can be avoided:
-#' rnorm(100) %>% {c(min(.), mean(.), max(.))} %>% floor
+#' rnorm(100) %>>% {c(min(.), mean(.), max(.))} %>>% floor
 #' 
 #' # Lambda expressions: 
-#' iris %>%
+#' iris %>>%
 #' {
 #'   size <- sample(1:10, size = 1)
 #'   rbind(head(., size), tail(., size))
 #' }
 #' 
 #' # renaming in lambdas:
-#' iris %>%
+#' iris %>>%
 #' {
 #'   my_data <- .
 #'   size <- sample(1:10, size = 1)
 #'   rbind(head(my_data, size), tail(my_data, size))
 #' }
 #' 
-#' # Building unary functions with %>%
-#' trig_fest <- . %>% tan %>% cos %>% sin
+#' # Building unary functions with %>>%
+#' trig_fest <- . %>>% tan %>>% cos %>>% sin
 #' 
-#' 1:10 %>% trig_fest
+#' 1:10 %>>% trig_fest
 #' trig_fest(1:10)
 #' 
 #' @rdname pipe
 #' @export
-`%>%`  <- pipe()
+`%>>%`  <- pipe()
 
 #' magrittr compound assignment pipe-operator
 #' 
@@ -185,37 +185,37 @@ pipe <- function()
 #' @details The compound assignment pipe-operator, \code{\%<>\%}, is used to
 #' update a value by first piping it into one or more \code{rhs} expressions, and 
 #' then assigning the result. For example, \code{some_object \%<>\% 
-#' foo \%>\% bar} is equivalent to \code{some_object <- some_object \%>\% foo
-#' \%>\% bar}. It must be the first pipe-operator in a chain, but otherwise it
-#' works like \code{\link{\%>\%}}.
+#' foo \%>>\% bar} is equivalent to \code{some_object <- some_object \%>>\% foo
+#' \%>>\% bar}. It must be the first pipe-operator in a chain, but otherwise it
+#' works like \code{\link{\%>>\%}}.
 #' 
-#' @seealso \code{\link{\%>\%}}, \code{\link{\%T>\%}}, \code{\link{\%$\%}}
+#' @seealso \code{\link{\%>>\%}}, \code{\link{\%T>\%}}, \code{\link{\%$\%}}
 #' 
 #' @examples
-#' iris$Sepal.Length %<>% sqrt
+#' iris$Sepal.Length %<>>% sqrt
 #' 
 #' x <- rnorm(100)
 #' 
-#' x %<>% abs %>% sort
+#' x %<>>% abs %>>% sort
 #' 
 #' is_weekend <- function(day)
 #' {
 #'    # day could be e.g. character a valid representation
-#'    day %<>% as.Date
+#'    day %<>>% as.Date
 #'    
-#'    result <- day %>% format("%u") %>% as.numeric %>% is_greater_than(5)
+#'    result <- day %>>% format("%u") %>>% as.numeric %>>% is_greater_than(5)
 #'    
 #'    if (result)
-#'      message(day %>% paste("is a weekend!"))
+#'      message(day %>>% paste("is a weekend!"))
 #'    else
-#'      message(day %>% paste("is not a weekend!"))
+#'      message(day %>>% paste("is not a weekend!"))
 #'    
 #'    invisible(result)
 #' }
 #' 
 #' @rdname compound
 #' @export
-`%<>%` <- pipe() 
+`%<>>%` <- pipe() 
 
 #' magrittr tee operator
 #' 
@@ -226,20 +226,20 @@ pipe <- function()
 #' @param lhs A value or the magrittr placeholder.
 #' @param rhs A function call using the magrittr semantics.
 #' 
-#' @details The tee operator works like \code{\link{\%>\%}}, except the 
+#' @details The tee operator works like \code{\link{\%>>\%}}, except the 
 #' return value is \code{lhs} itself, and not the result of \code{rhs} function/expression.
 #' 
-#' @seealso \code{\link{\%>\%}}, \code{\link{\%<>\%}}, \code{\link{\%$\%}}
+#' @seealso \code{\link{\%>>\%}}, \code{\link{\%<>\%}}, \code{\link{\%$\%}}
 #' 
 #' @examples
-#' rnorm(200) %>%
-#' matrix(ncol = 2) %T>%
-#' plot %>% # plot usually does not return anything. 
+#' rnorm(200) %>>%
+#' matrix(ncol = 2) %T>>%
+#' plot %>>% # plot usually does not return anything. 
 #' colSums
 #' 
 #' @rdname tee
 #' @export
-`%T>%` <- pipe() 
+`%T>>%` <- pipe() 
 
 #' magrittr exposition pipe-operator
 #' 
@@ -254,16 +254,16 @@ pipe <- function()
 #' of the call. This operator exposes the contents of the left-hand side object
 #' to the expression on the right to give a similar benefit, see the examples.
 
-#' @seealso \code{\link{\%>\%}}, \code{\link{\%<>\%}}, \code{\link{\%$\%}}
+#' @seealso \code{\link{\%>>\%}}, \code{\link{\%<>\%}}, \code{\link{\%$>\%}}
 #' 
 #' @examples
-#' iris %>%
-#'   subset(Sepal.Length > mean(Sepal.Length)) %$%
+#' iris %>>%
+#'   subset(Sepal.Length > mean(Sepal.Length)) %$>%
 #'   cor(Sepal.Length, Sepal.Width)
 #'   
-#' data.frame(z = rnorm(100)) %$% 
+#' data.frame(z = rnorm(100)) %$>% 
 #'   ts.plot(z)
 #'   
 #' @rdname exposition
 #' @export
-`%$%` <- pipe() 
+`%$>%` <- pipe() 

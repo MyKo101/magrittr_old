@@ -1,3 +1,12 @@
+# magrittr_classic 1.6
+
+Added a `>` into all infix operators so that they will be disambiguous with the new versions of `{magrittr}`'s pipes:
+
+* `%>%` becomes `%>>%`
+* `%<>%` becomes `%<>>%`
+* `%T>%` becomes `%T>>%`
+* `%$%` becomes `%$>%`
+
 # magrittr 1.5
 
 ## New features

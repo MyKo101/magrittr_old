@@ -4,10 +4,10 @@
 # @return logical - TRUE if a valid magrittr pipe, FALSE otherwise.
 is_pipe <- function(pipe)
 {
-  identical(pipe, quote(`%>%`))   ||
-  identical(pipe, quote(`%T>%`))  ||
-  identical(pipe, quote(`%<>%`))  ||
-  identical(pipe, quote(`%$%`))
+  identical(pipe, quote(`%>>%`))   ||
+  identical(pipe, quote(`%T>>%`))  ||
+  identical(pipe, quote(`%<>>%`))  ||
+  identical(pipe, quote(`%$>%`))
 }
 
 # Determine whether an non-evaluated call is parenthesized
@@ -25,7 +25,7 @@ is_parenthesized <- function(expr)
 # @return logical - TRUE if pipe is a tee, FALSE otherwise.
 is_tee <- function(pipe)
 {
-  identical(pipe, quote(`%T>%`))
+  identical(pipe, quote(`%T>>%`))
 }
 
 # Check whether a pipe is the dollar pipe.
@@ -34,7 +34,7 @@ is_tee <- function(pipe)
 # @return logical - TRUE if pipe is the dollar pipe, FALSE otherwise.
 is_dollar <- function(pipe)
 {
-  identical(pipe, quote(`%$%`))
+  identical(pipe, quote(`%$>%`))
 }
 
 # Check whether a pipe is the compound assignment pipe operator
@@ -44,7 +44,7 @@ is_dollar <- function(pipe)
 #   otherwise FALSE.
 is_compound_pipe <- function(pipe)
 {
-  identical(pipe, quote(`%<>%`))
+  identical(pipe, quote(`%<>>%`))
 }
 
 # Check whether expression is enclosed in curly braces.

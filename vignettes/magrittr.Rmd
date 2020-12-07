@@ -23,7 +23,7 @@ a package with two aims: to decrease development time and to improve
 readability and maintainability of code. Or even shortr: to make your code smokin' (puff puff)!
 
 To archive its humble aims, *magrittr* (remember the accent) provides a new 
-"pipe"-like operator, `%>%`, with which you may pipe a value forward into an 
+"pipe"-like operator, `%>>%`, with which you may pipe a value forward into an 
 expression or function call; something along the lines of ` x %>% f `, rather
 than ` f(x)`. This is not an unknown feature
 elsewhere; a prime example is the `|>` operator used extensively in `F#`
@@ -35,7 +35,7 @@ some features which has been added since the initial release.
 
 # Introduction and basics
 
-At first encounter, you may wonder whether an operator such as `%>%`  can really 
+At first encounter, you may wonder whether an operator such as `%>>%`  can really 
 be all that beneficial; but as you may notice, it semantically changes your 
 code in a way that makes it more intuitive to both read and write.
 
@@ -91,7 +91,7 @@ The combined example shows a few neat features of the pipe (which it is not):
 1. By default the left-hand side (LHS) will be *piped in* as the first argument of 
 the function appearing on the right-hand side (RHS). This is the case in the 
 `subset` and `transform` expressions.
-2. `%>%` may be used in a nested fashion, e.g. it may appear in expressions within 
+2. `%>>%` may be used in a nested fashion, e.g. it may appear in expressions within 
 arguments. This is used in the `mpg` to `kpl` conversion.
 3. When the LHS is needed at a position other than the first, one can use
 the dot,`'.'`, as placeholder. This is used in the `aggregate` expression.
@@ -137,9 +137,9 @@ Another, less useful example is:
 
 # Additional pipe operators
 *magrittr* also provides three related pipe operators. These are not as
-common as `%>%` but they become useful in special cases. 
+common as `%>>%` but they become useful in special cases. 
 
-The "tee" operator, `%T>%` works like `%>%`, except it returns the left-hand
+The "tee" operator, `%T>>%` works like `%>>%`, except it returns the left-hand
 side value, and not the result of the right-hand side operation.
 This is useful when a step in a pipeline is used for its side-effect (printing,
 plotting, logging, etc.). As an example (where the actual plot is omitted here):
@@ -165,7 +165,7 @@ data.frame(z = rnorm(100)) %$%
   ts.plot(z)
 ```
 
-Finally, the compound assignment pipe operator `%<>%` can be used as the first pipe
+Finally, the compound assignment pipe operator `%<>>%` can be used as the first pipe
 in a chain. The effect will be that the result of the pipeline is assigned to the 
 left-hand side object, rather than returning the result as usual. It is essentially
 shorthand notation for expressions like `foo <- foo %>% bar %>% baz`, which
@@ -175,7 +175,7 @@ boils down to `foo %<>% bar %>% baz`. Another example is
 iris$Sepal.Length %<>% sqrt
 ```
 
-The `%<>%` can be used whenever `expr <- ...` makes sense, e.g. 
+The `%<>>%` can be used whenever `expr <- ...` makes sense, e.g. 
 
 * `x %<>% foo %>% bar`
 * `x[1:10] %<>% foo %>% bar`
@@ -183,7 +183,7 @@ The `%<>%` can be used whenever `expr <- ...` makes sense, e.g.
 
 # Aliases
 
-In addition to the `%>%`-operator, *magrittr* provides some aliases for other
+In addition to the `%>>%`-operator, *magrittr* provides some aliases for other
 operators which make operations such as addition or multiplication fit well 
 into the *magrittr*-syntax. As an example, consider:
 ```{r}

@@ -1,7 +1,7 @@
-Package: magrittr
+Package: magrittrclassic
 Type: Package
 Title: A Forward-Pipe Operator for R
-Version: 1.5
+Version: 1.6
 Author: Stefan Milton Bache <stefan@stefanbache.dk> and
     Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Stefan Milton Bache <stefan@stefanbache.dk>
@@ -18,3 +18,4 @@ Suggests:
 VignetteBuilder: knitr
 License: MIT + file LICENSE
 ByteCompile: Yes
+RoxygenNote: 7.1.1

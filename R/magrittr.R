@@ -11,7 +11,7 @@
 #' }
 #' The operators pipe their left-hand side values forward into expressions that
 #' appear on the right-hand side, i.e. one can replace \code{f(x)} with 
-#' \code{x \%>\% f}, where \code{\%>\%} is the (main) pipe-operator.
+#' \code{x \%>>\% f}, where \code{\%>>\%} is the (main) pipe-operator.
 #' \cr\cr
 #' Consider the example below. Four operations are performed to 
 #' arrive at the desired data set, and they are written in a natural order: 
@@ -23,7 +23,7 @@
 #' (\code{vignette("magrittr")}) or the documentation pages for the
 #' available operators:\cr
 #' \tabular{ll}{
-#'    \code{\link{\%>\%}}  \tab forward-pipe operator.\cr
+#'    \code{\link{\%>>\%}}  \tab forward-pipe operator.\cr
 #'    \code{\link{\%T>\%}} \tab tee operator.\cr
 #'    \code{\link{\%<>\%}} \tab compound assignment pipe-operator.\cr
 #'    \code{\link{\%$\%}}  \tab exposition pipe-operator.\cr
@@ -33,9 +33,9 @@
 #' \dontrun{
 #' 
 #' the_data <-
-#'   read.csv('/path/to/data/file.csv') %>%
-#'   subset(variable_a > x) %>%
-#'   transform(variable_c = variable_a/veraiable_b) %>%
+#'   read.csv('/path/to/data/file.csv') %>>%
+#'   subset(variable_a > x) %>>%
+#'   transform(variable_c = variable_a/veraiable_b) %>>%
 #'   head(100)
 #' }
 #' @docType package
