@@ -1,7 +1,7 @@
-Package: magrittr
+Package: magrittrclassic
 Type: Package
 Title: A Forward-Pipe Operator for R
-Version: 1.5
+Version: 1.5.1
 Author: Stefan Milton Bache <stefan@stefanbache.dk> and
     Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Stefan Milton Bache <stefan@stefanbache.dk>
